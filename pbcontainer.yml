@@ -3,6 +3,10 @@
   remote_user: felippe
   become: yes
   tasks:
+  - name: "Instala o pacote de integracao Docker com Python"
+    apt:
+      name: python-docker
+      state: present
   - name: "Executa o container MySQL"
     docker_container:
       name: banco
