@@ -7,12 +7,21 @@
     apt:
       name: python-docker
       state: present
+  - name: cria o diretório onde a base de dados MySQL sera salva
+    file:
+      path: /dados-banco
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
   - name: "Executa o container MySQL"
     docker_container:
       name: banco
       image: mysql:5.6
       env:
           MYSQL_ROOT_PASSWORD: senha123
+      volumes:
+        - /dados-banco:/var/lib/mysql
   - name: "Executa o container WordPress"
     docker_container:
       name: wordpress
